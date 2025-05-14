@@ -1,33 +1,55 @@
 package com.bp.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 @Entity
-@Table(name = "mylastname")
+@Table(name = "user")
 public class User {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@Column(name = "id")
+	private Long id;
 
-	@NotBlank(message = "The name cannot be empty!")
-	@Pattern(regexp = "^[A-Za-zА-Яа-яЁё]+$", message = "The name must contain only letters")
+	@Column(name = "name")
+	@NotEmpty(message = "Введите имя, это обязательное поле")
+	@Size(min = 2, max = 20, message = "Имя - от 2 до 20 символов")
+	@Pattern(regexp = "^[а-яА-Яa-zA-Z]+$", message = "Используйте кирриллицу или латинские буквы")
 	private String name;
 
-	@NotBlank(message = "The last name must contain only letters")
-	@Pattern(regexp = "^[A-Za-zА-Яа-яЁё]+$", message = "Last name must contain only letters")
-	private String sureName;
+	@Column(name = "surname")
+	@NotEmpty(message = "Введите фамилию")
+	@Size(min = 2, max = 25, message = "Фамилия - от 2 до 25 символов")
+	@Pattern(regexp = "^[а-яА-Яa-zA-Z]+$", message = "Используйте кирриллицу или латинские буквы")
+	private String surname;
 
-	public User() {
+	@Column(name = "age")
+	@Min(value = 0, message = "Возраст должен быть положительным числом")
+	@Max(value = 150, message = "Возраст должен быть реальным")
+	private int age;
+
+	@Column(name = "mail")
+	@NotEmpty(message = "Вы не указали электронную почту")
+	@Email
+	@Size(min = 4, max = 40, message = "Введите корректный почтовый адрес")
+	private String mail;
+
+	public User(String name, String surname, int age, String mail) {
+		this.name = name;
+		this.surname = surname;
+		this.age = age;
+		this.mail = mail;
 	}
 
-	public int getId() {
+	public User() {
+
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -39,17 +61,34 @@ public class User {
 		this.name = name;
 	}
 
-	public String getSureName() {
-		return sureName;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setSureName(String sureName) {
-		this.sureName = sureName;
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 	@Override
 	public String toString() {
-		return "User{" + "id=" + id + ", name='" + name + '\'' + ", sureName='"
-				+ sureName + '\'' + '}';
+		return "Users{" + "id=" + id + ", name='" + name + '\'' + ", lastName='"
+				+ surname + '\'' + ", age=" + age + ", mail='" + mail + '\''
+				+ '}';
 	}
 }

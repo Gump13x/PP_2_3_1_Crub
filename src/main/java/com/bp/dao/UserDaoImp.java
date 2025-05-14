@@ -19,12 +19,12 @@ public class UserDaoImp implements UserDao {
 				.getResultList();
 	}
 
-	public User getUserById(int id) {
+	public User getUserById(Long id) {
 		return entityManager.find(User.class, id);
 	}
 
 	public void save(User user) {
-		if (user.getId() == 0) {
+		if (user.getId() == null) {
 			entityManager.persist(user);
 		} else {
 			entityManager.merge(user);
@@ -36,7 +36,7 @@ public class UserDaoImp implements UserDao {
 		entityManager.merge(user);
 	}
 
-	public void delete(int id) {
+	public void delete(Long id) {
 		entityManager.remove(entityManager.find(User.class, id));
 	}
 }

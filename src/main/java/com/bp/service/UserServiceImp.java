@@ -23,7 +23,7 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Transactional(readOnly = true)
-	public User getUserById(int id) {
+	public User getUserById(Long id) {
 		return userDao.getUserById(id);
 	}
 
@@ -38,7 +38,7 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Transactional
-	public void delete(int id) {
+	public void delete(Long id) {
 		userDao.delete(id);
 	}
 }

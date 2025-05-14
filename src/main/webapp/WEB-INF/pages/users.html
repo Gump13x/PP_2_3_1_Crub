@@ -41,22 +41,22 @@
         }
 
         .user-table th {
-            background-color: #4CAF50;
+            background-color: #1e90ff;
             color: white;
         }
 
         .action-link {
-            color: #4CAF50;
+            color: #1e90ff;
             text-decoration: none;
             margin: 0 5px;
         }
 
         .action-link:hover {
-            color: #45a049;
+            color: #1c86ee;
         }
 
         .add-button {
-            background-color: #4CAF50;
+            background-color: #1e90ff;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -66,7 +66,7 @@
         }
 
         .add-button:hover {
-            background-color: #45a049;
+            background-color: #1c86ee;
         }
     </style>
 </head>
@@ -88,7 +88,7 @@
         <tr th:each="user : ${users}">
             <td th:text="${user.id}"></td>
             <td th:text="${user.name}"></td>
-            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.surname}"></td>
             <td th:text="${user.age}"></td>
             <td th:text="${user.mail}"></td>
             <td>

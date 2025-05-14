@@ -47,12 +47,15 @@
     }
 
     .submit-button {
-      background-color: #4CAF50;
+      background-color: #1e90ff;
       color: white;
       padding: 10px 20px;
       border: none;
       border-radius: 3px;
       cursor: pointer;
+    }
+    .submit-button:hover {
+      background-color: #1c86ee;
     }
   </style>
 </head>
@@ -73,9 +76,9 @@
     </div>
 
     <div>
-      <label for="lastName" class="label-text">Enter a surname:</label>
-      <input type="text" id="lastName" th:field="*{lastName}" class="input-field" />
-      <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-message"></p>
+      <label for="surname" class="label-text">Enter a surname:</label>
+      <input type="text" id="surname" th:field="*{surname}" class="input-field" />
+      <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></p>
     </div>
 
     <div>

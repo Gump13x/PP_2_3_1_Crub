@@ -33,7 +33,7 @@ public class UserController {
 	}
 
 	@GetMapping("/edit")
-	public String updateUser(@RequestParam("id") int id, Model model) {
+	public String updateUser(@RequestParam("id") Long id, Model model) {
 		model.addAttribute("user", userService.getUserById(id));
 		model.addAttribute("formAction", "/users/edit");
 		return "addUser";
@@ -62,7 +62,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("id") int id) {
+	public String delete(@RequestParam("id") Long id) {
 		userService.delete(id);
 		return "redirect:/users";
 	}
