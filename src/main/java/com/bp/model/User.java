@@ -1,26 +1,33 @@
 package com.bp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "users")
+@Table(name = "mylastname")
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
+	@NotBlank(message = "The name cannot be empty!")
+	@Pattern(regexp = "^[A-Za-zА-Яа-яЁё]+$", message = "The name must contain only letters")
 	private String name;
-	private String email;
 
-	public Long getId() {
+	@NotBlank(message = "The last name must contain only letters")
+	@Pattern(regexp = "^[A-Za-zА-Яа-яЁё]+$", message = "Last name must contain only letters")
+	private String sureName;
+
+	public User() {
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -32,11 +39,17 @@ public class User {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getSureName() {
+		return sureName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSureName(String sureName) {
+		this.sureName = sureName;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" + "id=" + id + ", name='" + name + '\'' + ", sureName='"
+				+ sureName + '\'' + '}';
 	}
 }

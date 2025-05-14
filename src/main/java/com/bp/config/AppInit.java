@@ -1,13 +1,10 @@
 package com.bp.config;
 
-import java.util.EnumSet;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInit
@@ -15,7 +12,7 @@ public class AppInit
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return null;
+		return new Class<?>[] { AppConfig.class };
 	}
 
 	@Override
@@ -28,27 +25,15 @@ public class AppInit
 		return new String[] { "/" };
 	}
 
-	public void onStartup(ServletContext servletContext)
-			throws ServletException {
-		super.onStartup(servletContext);
-		registerHiddenFieldFilter(servletContext);
-	}
+	@Override
+	public void onStartup(ServletContext sc) throws ServletException {
+		super.onStartup(sc);
 
-	public void registerHiddenFieldFilter(ServletContext servletContext) {
-		servletContext
-				.addFilter("hiddenHttpMethodFilter",
-						new HiddenHttpMethodFilter())
+		sc.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
 				.addMappingForUrlPatterns(null, true, "/*");
-	}
 
-	private void registerCharacterEncodingFilter(ServletContext aContext) {
-		EnumSet<DispatcherType> dispatcherTypes = EnumSet
-				.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
-		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-		characterEncodingFilter.setEncoding("UTF-8");
-		characterEncodingFilter.setForceEncoding(true);
-		FilterRegistration.Dynamic characterEncoding = aContext
-				.addFilter("characterEncoding", characterEncodingFilter);
-		characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+		sc.addFilter("encodingFilter",
+				new CharacterEncodingFilter("UTF-8", true))
+				.addMappingForUrlPatterns(null, true, "/*");
 	}
 }
